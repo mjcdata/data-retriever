@@ -4,13 +4,13 @@
 **Approved:** 2026-10-02
 
 ## Purpose
-Move from completed NOAA retrieval into a reproducible machine-learning pipeline and interactive current-temperature guessing application.
+Move from completed NOAA retrieval into a reproducible machine-learning pipeline and interactive daily high/low temperature prediction application.
 
 ## Locked modeling decisions
-- **Prediction target:** Guess the current temperature without using the actual current temperature as a model input. The application retrieves the actual current temperature separately after the prediction for comparison.
+- **Prediction targets:** Predict both the daily maximum temperature (TMAX) and daily minimum temperature (TMIN) using the existing GHCN-Daily dataset. V1 does not require a separate hourly historical target source.
 - **Location strategy:** User-facing map/location input maps latitude/longitude to appropriate NOAA station data.
 - **V1 features:** Previous-day TMAX/TMIN, recent temperature average/trend, recent precipitation, recent snow and snow depth, time of year, latitude, longitude, and elevation.
-- **Primary metric:** Mean Absolute Error (MAE), reported as average degrees off.
+- **Primary metric:** Mean Absolute Error (MAE), reported separately for TMAX and TMIN as average degrees off.
 - **Execution:** Owner-directed. The agent prepares scripts, documentation, and predefined workflows; the owner triggers runtime execution unless separately approved.
 
 ## Phase 1 — Data Profiling
@@ -62,9 +62,9 @@ Do not use 2025 to select features, choose algorithms, tune models, or otherwise
 **Goal:** Establish a simple benchmark that the ML model must improve upon.
 
 ### Work
-- Implement the persistence baseline using the prior relevant temperature as the guess.
+- Implement persistence baselines using prior-day TMAX as the TMAX guess and prior-day TMIN as the TMIN guess.
 - Evaluate it using the agreed time-based structure.
-- Calculate MAE.
+- Calculate TMAX MAE and TMIN MAE separately.
 - Preserve the baseline results as the benchmark for later comparison.
 
 ## Phase 5 — ML Model Training
@@ -73,7 +73,7 @@ Do not use 2025 to select features, choose algorithms, tune models, or otherwise
 ### Work
 - Select a small set of sensible candidate algorithms after profiling and dataset construction.
 - Train candidates on 2016–2022.
-- Compare candidates on 2023–2024 using MAE.
+- Compare candidates on 2023–2024 using TMAX MAE and TMIN MAE.
 - Select the candidate with the strongest supported validation performance.
 - Keep 2025 untouched throughout model selection.
 
@@ -84,7 +84,7 @@ Do not use 2025 to select features, choose algorithms, tune models, or otherwise
 - Unlock 2025 only after model selection is complete.
 - Evaluate the selected ML model on 2025.
 - Evaluate the persistence baseline on the same eligible 2025 observations.
-- Compare MAE on the same evaluation population.
+- Compare TMAX MAE and TMIN MAE on the same evaluation population.
 - Examine useful error patterns such as season and geography where supported by the data.
 - Document where the model performs well or poorly and record limitations.
 - Do not claim model improvement unless the results support it.
@@ -105,24 +105,24 @@ Do not use 2025 to select features, choose algorithms, tune models, or otherwise
 The application should load the saved model rather than retrain on the full historical dataset for every prediction.
 
 ## Phase 8 — Interactive Weather App
-**Goal:** Turn the model into the interactive current-temperature guessing experience.
+**Goal:** Turn the model into an interactive daily high/low temperature prediction experience.
 
 ### Intended experience
-- **Left:** Model's current-temperature guess.
+- **Left:** Model's predicted daily high (TMAX) and low (TMIN).
 - **Center:** Interactive U.S. map/location selection.
-- **Right:** Actual current temperature from a separate live weather source.
-- Display the prediction error clearly, for example: **Model was 3°F off.**
+- **Right:** Actual observed daily high and low when available for comparison.
+- Display prediction errors separately for the high and low.
 
 ### Prediction flow
 1. User selects a location.
 2. Resolve the location to the appropriate station/history needed for the model.
-3. Build the required features without using the actual current temperature.
-4. Load the saved model and generate the guess.
-5. Retrieve the actual current temperature separately.
-6. Compare the prediction with the actual reading and display the error.
+3. Build the required features without target leakage.
+4. Load the saved model and generate TMAX and TMIN predictions.
+5. Retrieve or use the actual observed TMAX and TMIN when available for comparison.
+6. Compare predicted versus actual high and low and display both errors.
 
 ### Integrity rule
-The actual current temperature used for comparison must not be provided to the model as an input.
+Actual target-day TMAX and TMIN must not be provided to the model as inputs. Features must use only information available before the target values.
 
 ## Completion
 When all phases are complete, update project validation, lessons learned, status, and audit documentation with the final evidence and reproducibility chain.
