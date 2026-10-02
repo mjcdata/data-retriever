@@ -5,42 +5,55 @@
 
 ## Decision
 
-Use a **hybrid storage approach**:
+Use a **rebuildable-data lifecycle**:
 
-- GitHub stores project documentation, retrieval and processing code, schemas/metadata, retrieval records/checksums when practical, validation artifacts, and small samples.
-- Full raw and processed nationwide weather data should **not** be committed directly to GitHub by default.
-- NOAA NCEI remains the authoritative upstream source from which raw data can be reproduced.
-- The project should create a reproducible local/external data directory structure for raw and processed files. The measured proof of concept confirms that full processed history should remain outside ordinary Git tracking. The exact long-term external persistence service may be selected before the full historical build if durable storage beyond transient GitHub Actions artifacts is required.
+- GitHub stores project documentation, retrieval/processing code, schemas and metadata, compact retrieval records/checksums when practical, validation evidence, model code/configuration, and small samples.
+- Full raw and processed nationwide weather data should **not** be committed to ordinary Git history.
+- NOAA NCEI remains the authoritative upstream source from which the training data can be rebuilt.
+- GitHub Actions artifacts may be used temporarily for execution transfer, inspection, validation, and model-building handoff.
+- Permanent storage of the full processed training dataset is optional rather than required when the dataset can be reproducibly rebuilt from NOAA.
 
 ## Rationale
 
-The 2025 proof of concept measured a 158,395,357-byte compressed NOAA annual source file and a 442,769,277-byte U.S.-only processed Parquet output containing 20,495,507 core observation rows. A straight-line projection from that measured processed output is 4,427,692,770 bytes (approximately 4.12 GiB) for ten years before allowing for year-to-year variation, additional derivatives, refreshes, or validation artifacts. This is beyond what is sensible to version as ordinary GitHub repository content.
+The 2025 proof of concept measured a 158,395,357-byte compressed NOAA annual source file and a 442,769,277-byte U.S.-only processed Parquet output containing 20,495,507 core observation rows. A straight-line projection is approximately 4.12 GiB across ten similarly sized years.
 
-The project is intended to update over time, which makes repeatedly committing large changing data files especially undesirable.
+The full 2016–2025 historical GitHub Actions build subsequently completed successfully, demonstrating that Data Retriever can reconstruct the historical processed outputs from the authoritative source through an owner-triggered workflow.
 
-Keeping retrieval code and provenance in GitHub while treating NOAA as the reproducible source preserves traceability without turning the repository into bulk data storage.
+Keeping retrieval code, provenance, transformation logic, and validation evidence in GitHub preserves reproducibility without requiring the repository to become a bulk data store.
+
+## Data and model lifecycle
+
+The intended lifecycle is:
+
+**NOAA → reproducible retrieval → temporary processed dataset → validation/feature engineering → model training/testing → preserved model artifact and reproducibility records**
+
+After a model is satisfactorily trained and validated, bulk processed training data may be discarded when continuous availability is unnecessary, provided the source and pipeline remain available to rebuild it.
+
+Rebuild the training set when newer observations are needed, feature engineering changes, the prediction target changes, a processing issue is discovered, retraining is required, or reproducibility/audit work requires reconstruction.
 
 ## Planned project structure
 
 - `planning/` — approved planning and decision records
 - `documentation/` — execution and data documentation
 - `scripts/` — retrieval, transformation, update, and validation code
-- `data/raw/` — source extracts, excluded from ordinary Git tracking when large
-- `data/processed/` — analysis-ready outputs, excluded from ordinary Git tracking when large
+- `data/raw/` — temporary or externally stored source extracts when needed
+- `data/processed/` — temporary or externally stored analysis-ready outputs when needed
 - `data/samples/` — small representative samples suitable for GitHub
 - `validation/` — validation summaries and compact evidence
 - `retrieval_records/` — source versions, retrieval dates, file inventories, checksums when practical
 
 ## Reproducibility requirements
 
-For each retrieval or refresh, preserve enough metadata to identify the NOAA source, retrieval date, requested years/geography, source version where available, files obtained, and transformation code used.
+Preserve enough metadata to identify the NOAA source, retrieval date, requested years/geography, files obtained, transformation code used, and relevant checksums.
 
-Because NOAA notes that recent U.S. real-time observations can later be replaced by archive-quality data, refresh logic must allow recent periods to be re-read rather than assuming previously retrieved recent observations are immutable.
+For a trained model, preserve the model artifact, feature/preprocessing code, model configuration and dependency information, training/validation strategy, evaluation results, and the retrieval/provenance information needed to reconstruct the training set.
+
+Because recent observations can be revised upstream, refresh logic must allow recent periods to be re-read rather than assuming prior retrievals are immutable.
 
 ## Security
 
-No NOAA API token or other credential may be committed to GitHub. Bulk HTTPS access should be preferred where it removes the need for credentials and meets the retrieval requirement.
+No NOAA API token or other credential may be committed to GitHub. Owner-directed execution remains the default: the agent prepares predefined retrieval/model workflows and the owner explicitly triggers execution unless a different execution mode is separately approved.
 
 ## Status
 
-The hybrid storage decision is confirmed by measured Phase 3 results. Full raw and processed historical data will not be committed to ordinary Git history. GitHub Actions artifacts may be used for temporary execution transfer/inspection, but their retention period does not make them the authoritative long-term data store. A durable external persistence mechanism should be selected before the full historical build if the resulting dataset must remain continuously available without rebuilding from NOAA.
+The full historical build has demonstrated that the 2016–2025 processed dataset is reproducibly rebuildable. Permanent multi-gigabyte persistence is therefore not a prerequisite for the project. Temporary artifacts remain subject to their retention period and should not be treated as durable storage.
