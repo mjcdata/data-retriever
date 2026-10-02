@@ -15,6 +15,16 @@ Annual files: https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_year/
 
 Station metadata: https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt
 
+## Retrieval method
+- Implementation language: Python.
+- Primary access method: NOAA bulk files over HTTPS.
+- Historical annual files are read from NOAA's `by_year` bulk directory.
+- Pandas may be used as the in-memory processing layer.
+- Processed analytical output will be written to Parquet for the proof of concept.
+- The NOAA API is not the primary historical retrieval method; it may be evaluated later for targeted or incremental use cases.
+
+Planned script: `scripts/retrieve_ghcnd.py`.
+
 ## Initial historical retrieval
 1. Retrieve station metadata and identify U.S. stations.
 2. Retrieve annual GHCNd bulk files for the approved approximately ten-year window.
@@ -31,13 +41,22 @@ Do not treat recent observations as immutable. Refresh a recent rolling window s
 Each refresh must be reproducible and produce a new retrieval record.
 
 ## Proof of concept
-Before the nationwide ten-year load, run a small retrieval that exercises the same architecture:
+Use calendar year **2025**, a completed year, for the first storage-sizing proof of concept.
+
+The proof of concept will:
 - retrieve NOAA station metadata;
-- retrieve one annual bulk file;
-- select a small U.S. station subset;
+- retrieve the 2025 annual bulk file;
+- identify and retain U.S. stations;
 - retain PRCP, SNOW, SNWD, TMAX, TMIN and NOAA flags;
-- verify dates, station joins, units, missing values, and quality flags;
-- create a sample output and retrieval record.
+- join station metadata;
+- write the processed U.S.-only result to Parquet;
+- measure the downloaded compressed source file size;
+- measure the U.S.-only processed Parquet size;
+- record row counts and basic coverage;
+- estimate the approximate ten-year processed storage footprint from the measured one-year result;
+- create a small GitHub-safe sample and a retrieval record.
+
+The storage measurement is part of the proof of concept. Do not decide that the full processed dataset belongs in GitHub or external storage until the measured result is reviewed against repository practicality and the storage rules in `planning/DATA_STORAGE.md`.
 
 The proof of concept is successful only if another run can reproduce the same transformation from the documented NOAA source.
 
