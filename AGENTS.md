@@ -71,6 +71,18 @@ Artifacts from separate dataset projects must never be mixed.
 
 The Data Retriever framework at the repository root remains shared across all dataset projects.
 
+## Storage strategy
+
+Every dataset project must define its data-storage strategy during Project Setup.
+
+Do not assume that all raw or processed data should be committed to GitHub. Choose storage based on dataset size, update frequency, access requirements, reproducibility, security, and the capabilities available in the execution environment.
+
+Reasonably sized datasets may be stored directly within the project's self-contained directory when appropriate.
+
+Large, frequently updated, or otherwise unsuitable datasets should use an appropriate external storage mechanism. When project data is stored externally, the GitHub project must retain the source information, retrieval and processing code, metadata, manifests or checksums when practical, and human-readable instructions needed to locate, reproduce, or rebuild the dataset.
+
+The selected storage approach and its rationale must be documented in the project's durable documentation. Never commit secrets or sensitive credentials as part of a storage mechanism.
+
 Use the project-specific `PROJECT_SETUP.json` as a small machine-readable routing file that helps future sessions determine:
 
 1. Is setup complete?
