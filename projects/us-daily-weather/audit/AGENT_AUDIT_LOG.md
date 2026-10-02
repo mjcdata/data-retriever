@@ -29,3 +29,9 @@ For this project, append material agent actions to this log as work is performed
 
 | 3:08 PM | User | Manually triggered the 2016 older-year compatibility workflow. | Successful Run ID `37058669748`; a separate Run `37058701233` was cancelled and excluded from validation evidence. |
 | Current review | Agent | Validated the 2016 compatibility run and artifact, and advanced the project gate to the full 2016–2025 historical build. | Run `37058669748` succeeded; artifact `us-daily-weather-2016`, ID `11249927224`, size 336,631,552 bytes; VALIDATION.md commit `16b3e0bffe136c54876403d5b72a934806e7425f`. |
+
+
+| 3:24 PM | User | Manually triggered the full 2016–2025 historical workflow in historical mode. | GitHub Actions Run `37060323541`, based on workflow commit `77fa9e8189aaea03eb31b55c0ab3a94f88688fbe`. |
+| 3:26 PM | GitHub Actions | Completed the full 2016–2025 historical matrix. | Run `37060323541` conclusion: **success**; ten historical year jobs succeeded and the single-year job was skipped as intended. |
+| Current review | Agent | Verified historical execution and artifact creation for all ten requested years. | Ten artifacts named `us-daily-weather-2016` through `us-daily-weather-2025` were present. Workflow success is recorded as execution-level validation, not a substitute for target-specific row-level model validation. |
+| Documentation closeout | Agent | Closed the historical retrieval phase documentation and formalized the rebuildable-data/model-preservation lifecycle. | VALIDATION.md commit `fb7c27140b04636fbbbad97820e37ad70f02813b`; DATA_STORAGE.md commit `07f38abb561e87c767ec02178ec3e879dfba9b8e`; LESSONS_LEARNED.md commit `88f7511633bba9d19c252117b96d5237e49553fc`. |
