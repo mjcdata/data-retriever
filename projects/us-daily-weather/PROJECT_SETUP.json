@@ -8,7 +8,9 @@
   },
   "documents": {
     "project_proposal": "documentation/PROJECT_PROPOSAL.md",
-    "project_plan": "documentation/PROJECT_PLAN.md"
+    "project_plan": "documentation/PROJECT_PLAN.md",
+    "source_assessment": "documentation/SOURCE_ASSESSMENT.md",
+    "data_storage": "documentation/DATA_STORAGE.md"
   },
   "last_updated": "2026-10-02"
 }
