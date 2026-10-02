@@ -71,9 +71,21 @@ Artifacts from separate dataset projects must never be mixed.
 
 The Data Retriever framework at the repository root remains shared across all dataset projects.
 
+## Documentation lifecycle
+
+The approved project proposal and project plan are durable records of the scope and execution approach approved by the owner. Do not silently rewrite them to incorporate later research findings or execution results.
+
+If the approved scope or plan must materially change, document the proposed change and obtain owner approval before replacing the authoritative approved version.
+
+Source discovery findings belong in `documentation/SOURCE_ASSESSMENT.md`. This document should record the sources evaluated, coverage, relevant variables, access methods, update cadence, licensing or usage constraints, practical retrieval limits, expected data volume when known, limitations, and the recommended source with rationale.
+
+The project's storage decision belongs in `documentation/DATA_STORAGE.md`. This document should record the selected storage mechanism, expected size and growth, what is and is not stored in GitHub, update behavior, reproducibility requirements, security considerations, and the rationale for the decision.
+
+As execution continues, use dedicated durable documents for the data dictionary, cleaning decisions, validation evidence, delivery/update workflow, and lessons learned rather than overloading the original proposal.
+
 ## Storage strategy
 
-Every dataset project must define its data-storage strategy during Project Setup.
+Every dataset project must define its data-storage strategy during Project Setup or finalize it immediately after source discovery when source characteristics are required to make a defensible choice.
 
 Do not assume that all raw or processed data should be committed to GitHub. Choose storage based on dataset size, update frequency, access requirements, reproducibility, security, and the capabilities available in the execution environment.
 
@@ -81,7 +93,7 @@ Reasonably sized datasets may be stored directly within the project's self-conta
 
 Large, frequently updated, or otherwise unsuitable datasets should use an appropriate external storage mechanism. When project data is stored externally, the GitHub project must retain the source information, retrieval and processing code, metadata, manifests or checksums when practical, and human-readable instructions needed to locate, reproduce, or rebuild the dataset.
 
-The selected storage approach and its rationale must be documented in the project's durable documentation. Never commit secrets or sensitive credentials as part of a storage mechanism.
+The selected storage approach and its rationale must be documented in `documentation/DATA_STORAGE.md`. Never commit secrets or sensitive credentials as part of a storage mechanism.
 
 Use the project-specific `PROJECT_SETUP.json` as a small machine-readable routing file that helps future sessions determine:
 
@@ -121,6 +133,8 @@ A typical project-specific `PROJECT_SETUP.json` may contain:
   "documents": {
     "project_proposal": "documentation/PROJECT_PROPOSAL.md",
     "project_plan": "documentation/PROJECT_PLAN.md",
+    "source_assessment": "documentation/SOURCE_ASSESSMENT.md",
+    "data_storage": "documentation/DATA_STORAGE.md",
     "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "cleaning_log": "documentation/CLEANING_LOG.md",
     "lessons_learned": "documentation/LESSONS_LEARNED.md"
