@@ -1,7 +1,7 @@
 # U.S. Daily Weather — Status
 
 **Status date:** 2026-10-02  
-**Current phase:** Modeling planning complete → Work-plan development / Data Profiling next  
+**Current phase:** Work plan approved → Phase 1 Data Profiling next  
 **Overall status:** Ready to begin model-preparation execution
 
 ## Completed
@@ -50,7 +50,18 @@ Target-specific row-level checks, feature-quality validation, train/validation/t
 
 ## Work plan
 
-`planning/WORK_PLAN.md` is now the execution roadmap. Phase 1 Data Profiling and Phase 2 Modeling Dataset & Feature Engineering are agreed at a high level. Remaining phases will be developed with the owner.
+`planning/WORK_PLAN.md` is the approved eight-phase execution roadmap.
+
+1. Data Profiling.
+2. Modeling Dataset & Feature Engineering.
+3. Time-Based Train / Validation / Test Setup: train 2016–2022, validate 2023–2024, final test 2025.
+4. Persistence Baseline Model.
+5. ML Model Training with a small set of candidates selected by validation performance.
+6. Final Model Evaluation on untouched 2025 data against the baseline using MAE.
+7. Save & Package the Final Model and reproducibility records.
+8. Interactive Weather App with model guess, U.S. map/location selection, actual current temperature, and prediction error.
+
+**Next execution phase:** Phase 1 — Data Profiling.
 
 ## Key project records
 
