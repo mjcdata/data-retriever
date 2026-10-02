@@ -1,0 +1,14 @@
+{
+  "setup_complete": false,
+  "framework_version": "1.0",
+  "project_name": "U.S. Daily Weather",
+  "workspace": {
+    "type": "github",
+    "location": "mjcdata/data-retriever/projects/us-daily-weather"
+  },
+  "documents": {
+    "project_proposal": "documentation/PROJECT_PROPOSAL.md",
+    "project_plan": "documentation/PROJECT_PLAN.md"
+  },
+  "last_updated": "2026-10-02"
+}
