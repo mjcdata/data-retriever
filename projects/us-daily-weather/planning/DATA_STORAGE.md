@@ -10,11 +10,11 @@ Use a **hybrid storage approach**:
 - GitHub stores project documentation, retrieval and processing code, schemas/metadata, retrieval records/checksums when practical, validation artifacts, and small samples.
 - Full raw and processed nationwide weather data should **not** be committed directly to GitHub by default.
 - NOAA NCEI remains the authoritative upstream source from which raw data can be reproduced.
-- The project should create a reproducible local/external data directory structure for raw and processed files. The exact external persistence mechanism can be selected when execution tooling and expected U.S.-only volume are measured during retrieval.
+- The project should create a reproducible local/external data directory structure for raw and processed files. The measured proof of concept confirms that full processed history should remain outside ordinary Git tracking. The exact long-term external persistence service may be selected before the full historical build if durable storage beyond transient GitHub Actions artifacts is required.
 
 ## Rationale
 
-GHCNd's complete global compressed archive is roughly 3.7 GB, and recent global annual compressed CSV files are roughly 160–175 MB each. A ten-year nationwide subset plus extracted/processed derivatives, repeated refreshes, and validation artifacts can grow beyond what is sensible to version as ordinary GitHub repository content.
+The 2025 proof of concept measured a 158,395,357-byte compressed NOAA annual source file and a 442,769,277-byte U.S.-only processed Parquet output containing 20,495,507 core observation rows. A straight-line projection from that measured processed output is 4,427,692,770 bytes (approximately 4.12 GiB) for ten years before allowing for year-to-year variation, additional derivatives, refreshes, or validation artifacts. This is beyond what is sensible to version as ordinary GitHub repository content.
 
 The project is intended to update over time, which makes repeatedly committing large changing data files especially undesirable.
 
@@ -43,4 +43,4 @@ No NOAA API token or other credential may be committed to GitHub. Bulk HTTPS acc
 
 ## Status
 
-Storage strategy approved by framework rules for execution. The external/local persistence implementation may be refined after Phase 3 measures actual U.S.-only data volume; any material change must be documented here.
+The hybrid storage decision is confirmed by measured Phase 3 results. Full raw and processed historical data will not be committed to ordinary Git history. GitHub Actions artifacts may be used for temporary execution transfer/inspection, but their retention period does not make them the authoritative long-term data store. A durable external persistence mechanism should be selected before the full historical build if the resulting dataset must remain continuously available without rebuilding from NOAA.
