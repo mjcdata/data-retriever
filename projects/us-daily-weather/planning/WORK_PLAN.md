@@ -18,9 +18,11 @@ Move from completed NOAA retrieval into a reproducible machine-learning pipeline
 
 ### Work
 - Document dataset structure and fields.
-- Create or complete the data dictionary.
-- Document date fields and their meaning.
-- Document NOAA abbreviations, codes, flags, and units in a glossary where applicable.
+- Create `documentation/DATA_DICTIONARY.md` as one master source-to-model crosswalk table covering all fields used in the combined dataset.
+- For each field, trace the source dataset, source column/code, source definition, source unit, standardized/final column name, standardized unit, transformation/conversion, modeling use, and notes.
+- Include observation fields and station-metadata fields in the same master crosswalk rather than separate source-specific dictionaries.
+- Document date fields and their meaning within the crosswalk.
+- Document NOAA abbreviations, codes, flags, and units within the same crosswalk/notes where applicable.
 - Count rows, stations, dates, and relevant observations.
 - Measure date, station, and geographic coverage.
 - Measure nulls and missing observations.
