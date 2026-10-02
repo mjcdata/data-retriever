@@ -61,7 +61,17 @@ It should define how Data Retriever operates, but it should not contain the requ
 
 Project-specific information belongs in the project's durable documentation.
 
-Use `PROJECT_SETUP.json` as a small machine-readable routing file that helps future sessions determine:
+## Project isolation
+
+Every dataset retrieval project must be created in its own self-contained directory under `projects/`.
+
+All project-specific files, including `PROJECT_SETUP.json`, documentation, raw data, processed data, scripts, validation artifacts, and outputs, must remain within that project's directory.
+
+Artifacts from separate dataset projects must never be mixed.
+
+The Data Retriever framework at the repository root remains shared across all dataset projects.
+
+Use the project-specific `PROJECT_SETUP.json` as a small machine-readable routing file that helps future sessions determine:
 
 1. Is setup complete?
 2. Where does the project live?
@@ -73,15 +83,19 @@ Do not store substantive requirements, secrets, task history, or dataset content
 
 # Detecting a New or Existing Project
 
-Start by looking for `PROJECT_SETUP.json`.
+First identify which dataset project under `projects/` the user is working with.
 
-If it is absent or does not indicate completed setup, enter **Project Setup**.
+If the requested project does not yet have a project directory, treat it as a new project and enter **Project Setup**. Create its self-contained directory as part of setup.
 
-If setup is complete, enter **Existing Project** mode and read the documents identified by `PROJECT_SETUP.json`.
+For an existing project, look for `PROJECT_SETUP.json` inside that project's directory.
+
+If it is absent or does not indicate completed setup, enter **Project Setup** for that project.
+
+If setup is complete, enter **Existing Project** mode and read the documents identified by that project's `PROJECT_SETUP.json`.
 
 Do not repeat the initial setup interview merely because a new chat, session, or agent begins.
 
-A typical `PROJECT_SETUP.json` may contain:
+A typical project-specific `PROJECT_SETUP.json` may contain:
 
 ```json
 {
@@ -90,7 +104,7 @@ A typical `PROJECT_SETUP.json` may contain:
   "project_name": "Example Dataset Project",
   "workspace": {
     "type": "github",
-    "location": "owner/repository"
+    "location": "owner/repository/projects/example-dataset-project"
   },
   "documents": {
     "project_proposal": "documentation/PROJECT_PROPOSAL.md",
@@ -101,3 +115,4 @@ A typical `PROJECT_SETUP.json` may contain:
   },
   "last_updated": "YYYY-MM-DD"
 }
+```
