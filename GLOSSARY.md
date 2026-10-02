@@ -1,35 +1,26 @@
 # Data Retriever Glossary
 
-This glossary defines acronyms, abbreviations, and shared technical terms used across Data Retriever projects.
+This glossary is for terminology needed to understand the actual data, its source, its fields, and its measurements.
 
-Project-specific terms that are unlikely to apply outside a single dataset project should be documented within that project's own documentation instead.
+Each entry should spell out the acronym or abbreviation and explain in plain language what it is and how it relates to the data.
 
-## Acronyms
+Do not add general project-management, workflow, programming, or file-format terminology unless it is necessary to interpret the dataset itself.
 
-| Term | Meaning | Notes |
+## Data Acronyms and Abbreviations
+
+| Term | Full name | What it is / relationship to the data |
 | --- | --- | --- |
-| GHCNd | Global Historical Climatology Network Daily | NOAA daily climate observation dataset used by the U.S. Daily Weather project. Also written as GHCN-Daily. |
-| NCEI | National Centers for Environmental Information | NOAA organization that provides access to environmental and climate data. |
-| NOAA | National Oceanic and Atmospheric Administration | U.S. federal agency and authoritative upstream source for the U.S. Daily Weather project. |
-
-## Abbreviations
-
-| Term | Meaning | Notes |
-| --- | --- | --- |
-| POC | Proof of concept | A limited test used to validate an approach before full execution. |
-
-## Technical Terms
-
-| Term | Meaning |
-| --- | --- |
-| DataFrame | An in-memory tabular data structure used by tools such as pandas while code is running. |
-| Parquet | A column-oriented file format commonly used to store analytical datasets efficiently. |
-| Retrieval record | Durable metadata describing a data retrieval, such as source, retrieval date, files, checksums, filters, and outputs. |
+| GHCNd | Global Historical Climatology Network Daily | The NOAA daily climate observation dataset used by the U.S. Daily Weather project. Also written as GHCN-Daily. |
+| NCEI | National Centers for Environmental Information | The NOAA organization that maintains and provides access to historical environmental and climate data, including GHCN-Daily. |
+| NOAA | National Oceanic and Atmospheric Administration | The U.S. federal agency that is the authoritative upstream source for the weather data used by the U.S. Daily Weather project. |
 
 ## Maintenance Rule
 
-When Data Retriever introduces an acronym, abbreviation, or shared technical term that is not already defined here, add it to this glossary.
+Add an entry when an acronym, abbreviation, field code, measurement code, source name, or domain-specific term is needed to understand a dataset.
 
-Avoid duplicate entries. Prefer the official or commonly accepted expansion and a short plain-language explanation.
+For each abbreviation or acronym, include:
+1. the abbreviation or acronym;
+2. the full spelled-out name;
+3. a plain-language explanation of what it is or how it relates to the data.
 
-Keep narrowly project-specific terminology in that project's documentation rather than expanding the root glossary unnecessarily.
+Do not add conversational or project-management shorthand such as POC, or general programming and storage terms such as DataFrame or Parquet, unless a term is itself required to interpret the dataset.
