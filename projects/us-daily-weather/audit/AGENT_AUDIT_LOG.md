@@ -26,3 +26,6 @@ For this project, append material agent actions to this log as work is performed
 
 | Documentation closeout | Agent | Recorded the completed 2025 proof-of-concept results, confirmed the hybrid storage decision from measured volume, created validation documentation, and captured lessons learned. | RETRIEVAL_ARCHITECTURE.md commit `ad1632bdcf502474088b641d90667d9c67a10ab8`; DATA_STORAGE.md commit `6439ea037db6314145705f995fb42e59ddecdbaa`; VALIDATION.md commit `54b52b74543523f88d1c326087d3e0243f93b61e`; LESSONS_LEARNED.md commit `7d7233ec118f92e1978daa6cae9a5d03e3c7e5bc`. |
 | Documentation closeout | Agent | Registered the new validation and lessons-learned documents in the project routing file. | PROJECT_SETUP.json commit `5b936df971f74a2fc3eee024eb1fc83bc1a3b546`. |
+
+| 3:08 PM | User | Manually triggered the 2016 older-year compatibility workflow. | Successful Run ID `37058669748`; a separate Run `37058701233` was cancelled and excluded from validation evidence. |
+| Current review | Agent | Validated the 2016 compatibility run and artifact, and advanced the project gate to the full 2016–2025 historical build. | Run `37058669748` succeeded; artifact `us-daily-weather-2016`, ID `11249927224`, size 336,631,552 bytes; VALIDATION.md commit `16b3e0bffe136c54876403d5b72a934806e7425f`. |
