@@ -87,6 +87,8 @@ Use `planning/` for approved planning and decision records, including `PROJECT_P
 
 Use `documentation/` for execution and data documentation, including the data dictionary, cleaning log, validation documentation, delivery/update documentation, and lessons learned.
 
+Use `audit/` for the project's durable agent audit trail. Every project must include `audit/AGENT_AUDIT_LOG.md`.
+
 Keep `PROJECT_SETUP.json` at the project root so agents can locate project state immediately.
 
 ## Execution strategy
@@ -105,6 +107,18 @@ When GitHub Actions is appropriate, prefer predefined workflows that run known p
 Data Retriever may prepare and create an approved execution workflow, but it must not autonomously trigger that workflow. Execution remains owner-directed. The owner may request execution conversationally, after which Data Retriever may trigger the predefined workflow using available tools.
 
 Record the selected execution approach in the project plan or other appropriate planning documentation so execution requirements are anticipated before the project reaches the scripting stage.
+
+## Agent audit trail
+
+Every Data Retriever project must maintain a human-readable audit log at `audit/AGENT_AUDIT_LOG.md` from Project Setup onward.
+
+Append material agent actions as they occur. At minimum, record the date/time when practical, actor, action taken, and result or evidence. Include relevant commit SHAs, workflow run IDs, artifact IDs, file paths, failures, and blockers when they materially help trace what happened.
+
+Distinguish agent actions from owner actions and execution-environment actions such as GitHub Actions. The audit log should describe actions actually performed or verified; do not claim an action succeeded until evidence confirms it.
+
+Do not record secrets, credentials, access tokens, passwords, or other sensitive values. Avoid copying large command outputs or dataset contents into the audit log; summarize them and reference the durable artifact instead.
+
+Audit logging is part of routine project execution and should not require separate owner approval for each entry.
 
 ## Documentation lifecycle
 
@@ -176,7 +190,8 @@ A typical project-specific `PROJECT_SETUP.json` may contain:
     "data_storage": "planning/DATA_STORAGE.md",
     "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "cleaning_log": "documentation/CLEANING_LOG.md",
-    "lessons_learned": "documentation/LESSONS_LEARNED.md"
+    "lessons_learned": "documentation/LESSONS_LEARNED.md",
+    "agent_audit_log": "audit/AGENT_AUDIT_LOG.md"
   },
   "last_updated": "YYYY-MM-DD"
 }
