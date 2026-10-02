@@ -1,15 +1,27 @@
 # U.S. Daily Weather — Lessons Learned
 
-## 2025 retrieval proof of concept
+## Retrieval and processing
 
-1. **Filter before pandas when the upstream file is much larger than the desired subset.** The NOAA annual file is global. A pandas-first approach was terminated in the available Codespaces environment. Streaming the gzip CSV and retaining only U.S. core observations before creating pandas/Arrow batches completed successfully.
+1. **Filter before pandas when the upstream file is much larger than the desired subset.** The NOAA annual file is global. A pandas-first approach was terminated; streaming and filtering U.S. core observations before pandas/Arrow batching completed successfully.
 
-2. **One measured year is more useful than relying only on rough source-size estimates.** The 2025 run produced 20,495,507 U.S. core rows and a 442,769,277-byte Parquet file, projecting to roughly 4.12 GiB across ten similarly sized years.
+2. **Measured execution is more useful than relying only on estimates.** The 2025 run produced 20,495,507 U.S. core rows and a 442,769,277-byte Parquet file, providing a concrete scale reference.
 
-3. **The full historical dataset should not live in ordinary Git history.** GitHub is appropriate for code, documentation, retrieval records, audit records, validation evidence, and small samples. Bulk historical outputs need local or external persistence.
+3. **Historical compatibility should be tested before scaling.** The 2016 compatibility run succeeded before the full historical matrix was launched.
 
-4. **GitHub Actions is a viable owner-directed execution environment.** The same predefined retrieval script completed successfully through a manually triggered workflow, so the owner does not need to keep a local machine or Codespace running for this type of retrieval.
+4. **The full 2016–2025 historical matrix can run successfully through the predefined owner-triggered workflow.** Run `37060323541` completed successfully and produced ten yearly artifacts.
 
-5. **Workflow artifacts are useful for transfer and inspection, not permanent storage.** The successful run uploaded the processed output as a temporary artifact with limited retention. Long-term persistence must be handled separately when required.
+## Storage and reproducibility
 
-6. **Historical compatibility should be tested before scaling.** A successful recent-year run does not prove every older annual file will behave identically. Test one older year before launching the approximately ten-year build.
+5. **The full historical dataset should not live in ordinary Git history.** GitHub is appropriate for code, documentation, provenance, validation evidence, audit records, model artifacts when appropriately sized, and small samples.
+
+6. **Rebuildability can replace permanent bulk-data persistence.** Because NOAA remains the authoritative source and the retrieval pipeline can reconstruct the historical dataset, permanent storage of the multi-gigabyte processed training set is optional when continuous availability is unnecessary.
+
+7. **Workflow artifacts are temporary handoff outputs.** They are useful for validation, transfer, and downstream model-building work but should not be treated as permanent storage.
+
+8. **Preserve the model and its reproducibility chain.** After training, retain the model artifact plus feature/preprocessing code, configuration/dependencies, evaluation results, and source/retrieval provenance needed to rebuild the training set.
+
+## Execution and security
+
+9. **Owner-directed GitHub Actions provides a useful execution boundary.** The agent can prepare auditable scripts and workflows while the owner explicitly authorizes runtime execution.
+
+10. **Workflow success and data-quality validation are different gates.** Successful jobs and artifact creation prove that the pipeline executed across all ten years; target-specific row-level and feature-quality checks remain part of model preparation.
