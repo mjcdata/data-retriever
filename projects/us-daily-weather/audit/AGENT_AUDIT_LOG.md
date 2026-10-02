@@ -21,3 +21,5 @@ The log records actions the agent actually performs or verifies. User actions ma
 ## Audit standard going forward
 
 For this project, append material agent actions to this log as work is performed. Include enough information to identify what changed, what was executed or inspected, and the result. Do not record secrets, credentials, tokens, or sensitive values in the audit log.
+
+| Current update | Agent | Standardized per-project audit logging in the Data Retriever framework and registered this project's audit log in PROJECT_SETUP.json. | AGENTS.md commit `fc54f5d7914e6c21835cdd0a4547c96855a74e34`; PROJECT_SETUP.json commit `ff625508c8932c8a9dd49629e6288598ff764ff9`. |
