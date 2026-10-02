@@ -51,6 +51,14 @@ Data Retriever should preserve enough information to answer:
 - What limitations remain?
 - How could another person reproduce the dataset?
 
+## 5. Maintain a shared glossary
+
+Use the repository-root `GLOSSARY.md` for acronyms, abbreviations, and shared technical terms used across Data Retriever projects.
+
+When Data Retriever introduces a new acronym, abbreviation, or shared technical term that is not already defined, add it to `GLOSSARY.md`.
+
+Avoid duplicate entries. Keep narrowly project-specific terminology in the applicable project's documentation rather than cluttering the shared glossary.
+
 ---
 
 # Portable Framework and Project-Specific State
