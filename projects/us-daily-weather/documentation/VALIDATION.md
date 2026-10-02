@@ -2,7 +2,9 @@
 
 ## Status
 
-The 2025 proof of concept and 2016 older-year compatibility test are validated. The project is ready to proceed to the full 2016–2025 historical build. Full historical dataset validation remains pending until that build completes.
+The 2016–2025 historical execution build is complete. GitHub Actions Run `37060323541` completed successfully and produced one artifact for each of the ten requested years.
+
+This validates the historical pipeline at the workflow/execution level. Detailed row-level review of every yearly retrieval record remains a separate validation layer and is not implied by workflow success alone.
 
 ## 2025 proof-of-concept evidence
 
@@ -16,38 +18,39 @@ The completed 2025 retrieval produced:
 - processed Parquet size of 442,769,277 bytes
 - source and processed SHA-256 checksums recorded by the retrieval process
 
-The retrieval completed after the implementation was changed to filter the compressed global NOAA stream before pandas/Arrow batching. This avoided the termination encountered by the earlier pandas-first approach.
+The retrieval completed after the implementation was changed to filter the compressed global NOAA stream before pandas/Arrow batching.
 
-## GitHub Actions execution validation
+## Historical compatibility evidence
 
-The predefined manual workflow was executed for calendar year 2025 as GitHub Actions Run `37053074876`.
+The same predefined workflow succeeded independently for 2016 in Run `37058669748`, establishing an older-year compatibility gate before scaling. A separate cancelled run `37058701233` is excluded from validation evidence.
 
-Result: **success**.
+## Full 2016–2025 historical build
 
-Verified workflow stages:
+Owner-triggered GitHub Actions Run `37060323541` executed the historical matrix for:
 
-- repository checkout
-- Python setup
-- dependency installation
-- GHCN-Daily retrieval and processing
-- artifact upload
-
-The run produced artifact `us-daily-weather-2025` (artifact ID `11246774656`). The artifact is temporary workflow output and is not treated as permanent project storage.
-
-## 2016 older-year compatibility validation
-
-The same predefined manual workflow was executed for calendar year 2016 as GitHub Actions Run `37058669748`.
+2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, and 2025.
 
 Result: **success**.
 
-All workflow stages completed successfully, including GHCN-Daily retrieval/processing and artifact upload. The run produced artifact `us-daily-weather-2016` (artifact ID `11249927224`), size 336,631,552 bytes. The artifact is temporary workflow output and is not treated as permanent project storage.
+The historical run produced exactly ten yearly artifacts:
 
-A separate Run `37058701233` was cancelled and is not used as validation evidence.
+- `us-daily-weather-2016`
+- `us-daily-weather-2017`
+- `us-daily-weather-2018`
+- `us-daily-weather-2019`
+- `us-daily-weather-2020`
+- `us-daily-weather-2021`
+- `us-daily-weather-2022`
+- `us-daily-weather-2023`
+- `us-daily-weather-2024`
+- `us-daily-weather-2025`
 
-## Current validation conclusion
+The workflow's `single-year` job was skipped as intended because historical mode was selected. Each historical matrix job independently completed retrieval/processing and artifact upload.
 
-The 2016 compatibility gate passed using the same retrieval code and workflow used for 2025. This provides evidence that the pipeline can process both the beginning and end of the planned 2016–2025 historical window.
+Artifacts are temporary GitHub Actions outputs and expire after the configured retention period. They are evidence and transfer outputs, not permanent project storage.
 
-The next stage is the full 2016–2025 historical build. Each year should remain independently processed and independently artifacted so a failure in one year can be isolated and retried without invalidating successful years.
+## Validation conclusion
 
-Full historical validation remains pending until all ten years are built and reviewed.
+The retrieval architecture has demonstrated successful execution across the complete planned 2016–2025 window using one owner-triggered historical workflow. This clears the project to proceed toward model preparation.
+
+Workflow success confirms execution and artifact creation. Before a model is treated as production-quality, model preparation should consume and validate the yearly retrieval records and perform data-quality checks appropriate to the selected prediction target.
