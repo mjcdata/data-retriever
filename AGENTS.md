@@ -87,6 +87,8 @@ If the approved scope or plan must materially change, document the proposed chan
 
 Source discovery findings belong in `planning/SOURCE_ASSESSMENT.md`. This document should record the sources evaluated, coverage, relevant variables, access methods, update cadence, licensing or usage constraints, practical retrieval limits, expected data volume when known, limitations, and the recommended source with rationale.
 
+For every source assessed, record the canonical official source URL when one is available. For the recommended source, also record the direct dataset download, bulk-access, or API endpoint URL when it differs from the canonical source page. Source links are a required, repeatable part of `planning/SOURCE_ASSESSMENT.md` so future users and agents can locate the exact data source without repeating discovery.
+
 The project's storage decision belongs in `planning/DATA_STORAGE.md`. This document should record the selected storage mechanism, expected size and growth, what is and is not stored in GitHub, update behavior, reproducibility requirements, security considerations, and the rationale for the decision.
 
 As execution continues, use dedicated durable documents for the data dictionary, cleaning decisions, validation evidence, delivery/update workflow, and lessons learned rather than overloading the original proposal.
