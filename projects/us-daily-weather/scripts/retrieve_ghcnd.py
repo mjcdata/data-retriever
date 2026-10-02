@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import csv
+import gzip
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -30,13 +32,30 @@ def sha256(path: Path) -> str:
 def parse_stations(path: Path) -> pd.DataFrame:
     specs = [(0, 11), (12, 20), (21, 30), (31, 37), (38, 40), (41, 71)]
     names = ["station_id", "latitude", "longitude", "elevation", "state", "station_name"]
-    df = pd.read_fwf(
-        path,
-        colspecs=specs,
-        names=names,
-        dtype={"station_id": "string", "state": "string"},
-    )
+    df = pd.read_fwf(path, colspecs=specs, names=names)
     return df[df["station_id"].str.startswith("US", na=False)].copy()
+
+
+def iter_us_core_batches(annual_path: Path, us_ids: set[str], batch_size: int = 50_000):
+    """Stream the global gzip CSV and yield only U.S. core observations.
+
+    Filtering with Python's csv reader before pandas/Arrow avoids constructing
+    large DataFrames for global observations that this project does not need.
+    """
+    rows = []
+    with gzip.open(annual_path, "rt", newline="") as source:
+        reader = csv.reader(source)
+        for row in reader:
+            if len(row) < 4:
+                continue
+            if row[0] not in us_ids or row[2] not in CORE:
+                continue
+            rows.append(row[:8])
+            if len(rows) >= batch_size:
+                yield pd.DataFrame.from_records(rows, columns=COLUMNS)
+                rows = []
+    if rows:
+        yield pd.DataFrame.from_records(rows, columns=COLUMNS)
 
 
 def main(year: int, root: Path) -> None:
@@ -53,14 +72,21 @@ def main(year: int, root: Path) -> None:
     stations_path = raw / "ghcnd-stations.txt"
 
     if not annual_path.exists():
-        print(f"Downloading {annual_url}")
+        print(f"Downloading {annual_url}", flush=True)
         urlretrieve(annual_url, annual_path)
-    if not stations_path.exists():
-        print(f"Downloading {stations_url}")
-        urlretrieve(stations_url, stations_path)
+    else:
+        print(f"Using existing {annual_path}", flush=True)
 
+    if not stations_path.exists():
+        print(f"Downloading {stations_url}", flush=True)
+        urlretrieve(stations_url, stations_path)
+    else:
+        print(f"Using existing {stations_path}", flush=True)
+
+    print("Loading U.S. station metadata...", flush=True)
     stations = parse_stations(stations_path)
-    us_ids = set(stations["station_id"].dropna())
+    us_ids = set(stations["station_id"].dropna().astype(str))
+    print(f"Found {len(us_ids):,} U.S. station IDs.", flush=True)
 
     parquet_path = processed / f"us_ghcnd_{year}.parquet"
     sample_path = samples / f"us_ghcnd_{year}_sample.csv"
@@ -77,30 +103,11 @@ def main(year: int, root: Path) -> None:
     date_min = None
     date_max = None
 
+    print("Streaming global file and retaining only U.S. core observations...", flush=True)
     try:
-        for chunk_number, chunk in enumerate(
-            pd.read_csv(
-                annual_path,
-                compression="gzip",
-                header=None,
-                names=COLUMNS,
-                dtype={
-                    "station_id": "string",
-                    "element": "string",
-                    "mflag": "string",
-                    "qflag": "string",
-                    "sflag": "string",
-                    "obstime": "string",
-                },
-                chunksize=250_000,
-            ),
-            start=1,
-        ):
-            chunk = chunk[chunk["station_id"].isin(us_ids) & chunk["element"].isin(CORE)].copy()
-            if chunk.empty:
-                continue
-
-            chunk["date"] = pd.to_datetime(chunk["date"].astype(str), format="%Y%m%d")
+        for batch_number, chunk in enumerate(iter_us_core_batches(annual_path, us_ids), start=1):
+            chunk["date"] = pd.to_datetime(chunk["date"], format="%Y%m%d")
+            chunk["value"] = pd.to_numeric(chunk["value"], errors="coerce")
             result = chunk.merge(stations, on="station_id", how="left", validate="many_to_one")
 
             table = pa.Table.from_pandas(result, preserve_index=False)
@@ -120,9 +127,10 @@ def main(year: int, root: Path) -> None:
                 sample_frames.append(take)
                 sample_rows += len(take)
 
-            if chunk_number % 20 == 0:
-                print(f"Processed {chunk_number:,} source chunks; retained {row_count:,} rows")
-
+            print(
+                f"Batch {batch_number:,}: retained {row_count:,} U.S. core rows",
+                flush=True,
+            )
     finally:
         if writer is not None:
             writer.close()
@@ -133,6 +141,7 @@ def main(year: int, root: Path) -> None:
     if sample_frames:
         pd.concat(sample_frames, ignore_index=True).to_csv(sample_path, index=False)
 
+    print("Calculating file checksums...", flush=True)
     source_bytes = annual_path.stat().st_size
     parquet_bytes = parquet_path.stat().st_size
     record = {
@@ -159,10 +168,6 @@ def main(year: int, root: Path) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", type=int, default=2025)
-    parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=Path(__file__).resolve().parents[1],
-    )
+    parser.add_argument("--project-root", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     main(args.year, args.project_root)
