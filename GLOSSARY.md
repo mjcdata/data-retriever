@@ -13,6 +13,14 @@ Do not add general project-management, workflow, programming, or file-format ter
 | GHCNd | Global Historical Climatology Network Daily | The NOAA daily climate observation dataset used by the U.S. Daily Weather project. Also written as GHCN-Daily. |
 | NCEI | National Centers for Environmental Information | The NOAA organization that maintains and provides access to historical environmental and climate data, including GHCN-Daily. |
 | NOAA | National Oceanic and Atmospheric Administration | The U.S. federal agency that is the authoritative upstream source for the weather data used by the U.S. Daily Weather project. |
+| PRCP | Precipitation | GHCN-Daily element code for daily precipitation. In the NOAA source used here, values are stored in tenths of millimeters. |
+| SNOW | Snowfall | GHCN-Daily element code for daily snowfall, stored in millimeters. |
+| SNWD | Snow depth | GHCN-Daily element code for snow depth, stored in millimeters. |
+| TMAX | Maximum temperature | GHCN-Daily element code for daily maximum temperature, stored in tenths of degrees Celsius. |
+| TMIN | Minimum temperature | GHCN-Daily element code for daily minimum temperature, stored in tenths of degrees Celsius. |
+| MFLAG | Measurement flag | GHCN-Daily attribute that records special information about how an observation was measured or represented. |
+| QFLAG | Quality flag | GHCN-Daily attribute that identifies an observation that failed a NOAA quality-assurance check; blank means it did not fail a listed check. |
+| SFLAG | Source flag | GHCN-Daily attribute identifying the source selected for an observation. |
 
 ## Maintenance Rule
 
