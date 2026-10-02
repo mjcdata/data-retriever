@@ -11,7 +11,9 @@
     "project_plan": "planning/PROJECT_PLAN.md",
     "source_assessment": "planning/SOURCE_ASSESSMENT.md",
     "data_storage": "planning/DATA_STORAGE.md",
-    "agent_audit_log": "audit/AGENT_AUDIT_LOG.md"
+    "agent_audit_log": "audit/AGENT_AUDIT_LOG.md",
+    "validation": "documentation/VALIDATION.md",
+    "lessons_learned": "documentation/LESSONS_LEARNED.md"
   },
   "last_updated": "2026-10-02"
 }
