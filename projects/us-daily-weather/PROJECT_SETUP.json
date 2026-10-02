@@ -11,6 +11,8 @@
     "project_plan": "planning/PROJECT_PLAN.md",
     "source_assessment": "planning/SOURCE_ASSESSMENT.md",
     "data_storage": "planning/DATA_STORAGE.md",
+    "work_plan": "planning/WORK_PLAN.md",
+    "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "agent_audit_log": "audit/AGENT_AUDIT_LOG.md",
     "validation": "documentation/VALIDATION.md",
     "lessons_learned": "documentation/LESSONS_LEARNED.md"
