@@ -40,12 +40,12 @@ Target-specific row-level checks, feature-quality validation, train/validation/t
 
 ## Modeling plan completed
 
-1. **Prediction target:** V1 guesses the current temperature without seeing the actual current temperature; the application compares the guess with the actual reading and reports the error.
+1. **Prediction targets:** V1 predicts both daily maximum temperature (TMAX) and daily minimum temperature (TMIN) using the existing GHCN-Daily dataset.
 2. **Location strategy:** User-facing map/location input maps latitude/longitude to appropriate NOAA station data.
 3. **V1 features:** Previous-day TMAX/TMIN, recent temperature average/trend, recent precipitation, recent snow/snow depth, time of year, latitude, longitude, and elevation.
 4. **Time-based evaluation:** Use 2016–2024 for development and reserve all of 2025 as unseen final-test data.
-5. **Baseline:** Persistence — assume the target temperature will be like the prior relevant temperature observation.
-6. **Primary metric:** Mean Absolute Error (MAE), reported as average degrees off.
+5. **Baseline:** Persistence — prior-day TMAX predicts target-day TMAX and prior-day TMIN predicts target-day TMIN.
+6. **Primary metric:** Mean Absolute Error (MAE), reported separately for TMAX and TMIN as average degrees off.
 7. **Model use:** Save the selected trained model as a reusable artifact; build the interactive map/weather interface after training and evaluation.
 
 ## Work plan
@@ -59,7 +59,7 @@ Target-specific row-level checks, feature-quality validation, train/validation/t
 5. ML Model Training with a small set of candidates selected by validation performance.
 6. Final Model Evaluation on untouched 2025 data against the baseline using MAE.
 7. Save & Package the Final Model and reproducibility records.
-8. Interactive Weather App with model guess, U.S. map/location selection, actual current temperature, and prediction error.
+8. Interactive Weather App with predicted daily high/low, U.S. map/location selection, observed high/low comparison, and separate prediction errors.
 
 **Next execution phase:** Phase 1 — Data Profiling.
 
