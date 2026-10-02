@@ -7,7 +7,7 @@
 
 Use a **hybrid storage approach**:
 
-- GitHub stores project documentation, retrieval and processing code, schemas/metadata, manifests/checksums when practical, validation artifacts, and small samples.
+- GitHub stores project documentation, retrieval and processing code, schemas/metadata, retrieval records/checksums when practical, validation artifacts, and small samples.
 - Full raw and processed nationwide weather data should **not** be committed directly to GitHub by default.
 - NOAA NCEI remains the authoritative upstream source from which raw data can be reproduced.
 - The project should create a reproducible local/external data directory structure for raw and processed files. The exact external persistence mechanism can be selected when execution tooling and expected U.S.-only volume are measured during retrieval.
@@ -28,7 +28,7 @@ Keeping retrieval code and provenance in GitHub while treating NOAA as the repro
 - `data/processed/` — analysis-ready outputs, excluded from ordinary Git tracking when large
 - `data/samples/` — small representative samples suitable for GitHub
 - `validation/` — validation summaries and compact evidence
-- `manifests/` — source versions, retrieval dates, file inventories, checksums when practical
+- `retrieval_records/` — source versions, retrieval dates, file inventories, checksums when practical
 
 ## Reproducibility requirements
 
