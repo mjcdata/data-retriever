@@ -13,7 +13,7 @@ Turn the completed retrieval work and modeling decisions into an execution plan.
 - Baseline: persistence — use the prior relevant temperature as the simple benchmark.
 - Primary metric: Mean Absolute Error (MAE), reported as average degrees off.
 - Model use: save the selected trained model as a reusable artifact so the application can make predictions without retraining on the full history for every request.
-- Target definition: needs one final confirmation before modeling-dataset construction. Discussion included both next-day maximum temperature and a current-temperature guessing application; do not silently treat these as the same target.
+- Prediction target: V1 will guess the current temperature without receiving the actual current temperature as an input. The application will compare the model guess with the actual current temperature and report the error. Next-day maximum temperature is not the V1 target.
 
 ## Phase 1 — Data Profiling
 **Status:** Agreed
@@ -46,7 +46,6 @@ A written profiling report documenting findings, limitations, and any data-quali
 Use the profiling results to construct the modeling dataset and implement the agreed V1 features without target leakage.
 
 ### Planned direction
-- Confirm the exact prediction target before construction.
 - Define the exact calculation for each V1 feature.
 - Join observations to required station metadata.
 - Construct recent-history features using only information available before the target.
