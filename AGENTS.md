@@ -91,7 +91,9 @@ Do not assume that all raw or processed data should be committed to GitHub. Choo
 
 Reasonably sized datasets may be stored directly within the project's self-contained directory when appropriate.
 
-Large, frequently updated, or otherwise unsuitable datasets should use an appropriate external storage mechanism. When project data is stored externally, the GitHub project must retain the source information, retrieval and processing code, metadata, manifests or checksums when practical, and human-readable instructions needed to locate, reproduce, or rebuild the dataset.
+Large, frequently updated, or otherwise unsuitable datasets should use an appropriate external storage mechanism. When project data is stored externally, the GitHub project must retain the source information, retrieval and processing code, metadata, retrieval records or checksums when practical, and human-readable instructions needed to locate, reproduce, or rebuild the dataset.
+
+Use `retrieval_records/` for durable retrieval metadata such as source versions, retrieval dates, file inventories, and checksums when practical. Use the term **retrieval record** rather than **manifest** throughout Data Retriever documentation.
 
 The selected storage approach and its rationale must be documented in `documentation/DATA_STORAGE.md`. Never commit secrets or sensitive credentials as part of a storage mechanism.
 
