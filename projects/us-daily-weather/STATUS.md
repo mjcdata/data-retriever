@@ -1,8 +1,8 @@
 # U.S. Daily Weather — Status
 
 **Status date:** 2026-10-02  
-**Current phase:** Retrieval complete → Model planning next  
-**Overall status:** Ready to proceed
+**Current phase:** Modeling planning complete → Work-plan development / Data Profiling next  
+**Overall status:** Ready to begin model-preparation execution
 
 ## Completed
 
@@ -38,20 +38,23 @@ The historical workflow successfully processed all ten requested years and creat
 
 Target-specific row-level checks, feature-quality validation, train/validation/test design, and model evaluation belong to the model-preparation phase.
 
-## Next phase
+## Modeling plan completed
 
-Model planning should define:
+1. **Prediction target:** V1 guesses the current temperature without seeing the actual current temperature; the application compares the guess with the actual reading and reports the error.
+2. **Location strategy:** User-facing map/location input maps latitude/longitude to appropriate NOAA station data.
+3. **V1 features:** Previous-day TMAX/TMIN, recent temperature average/trend, recent precipitation, recent snow/snow depth, time of year, latitude, longitude, and elevation.
+4. **Time-based evaluation:** Use 2016–2024 for development and reserve all of 2025 as unseen final-test data.
+5. **Baseline:** Persistence — assume the target temperature will be like the prior relevant temperature observation.
+6. **Primary metric:** Mean Absolute Error (MAE), reported as average degrees off.
+7. **Model use:** Save the selected trained model as a reusable artifact; build the interactive map/weather interface after training and evaluation.
 
-1. Prediction target.
-2. Prediction granularity/location strategy.
-3. Feature engineering.
-4. Time-based training, validation, and holdout periods.
-5. Baseline model and candidate ML model.
-6. Evaluation metrics.
-7. Final model artifact format and deployment approach.
+## Work plan
+
+`planning/WORK_PLAN.md` is now the execution roadmap. Phase 1 Data Profiling and Phase 2 Modeling Dataset & Feature Engineering are agreed at a high level. Remaining phases will be developed with the owner.
 
 ## Key project records
 
+- `planning/WORK_PLAN.md`
 - `planning/DATA_STORAGE.md`
 - `planning/RETRIEVAL_ARCHITECTURE.md`
 - `documentation/VALIDATION.md`
