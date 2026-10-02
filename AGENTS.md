@@ -51,13 +51,15 @@ Data Retriever should preserve enough information to answer:
 - What limitations remain?
 - How could another person reproduce the dataset?
 
-## 5. Maintain a shared glossary
+## 5. Maintain a data-understanding glossary
 
-Use the repository-root `GLOSSARY.md` for acronyms, abbreviations, and shared technical terms used across Data Retriever projects.
+Use the repository-root `GLOSSARY.md` only for terminology needed to understand actual datasets: source and organization acronyms, dataset abbreviations, field codes, measurement codes, and domain-specific data terms.
 
-When Data Retriever introduces a new acronym, abbreviation, or shared technical term that is not already defined, add it to `GLOSSARY.md`.
+For each acronym or abbreviation, record the full spelled-out name and a plain-language explanation of what it is or how it relates to the data.
 
-Avoid duplicate entries. Keep narrowly project-specific terminology in the applicable project's documentation rather than cluttering the shared glossary.
+Do not add general project-management, conversational, programming, or storage terminology merely because it appears during project work. Terms such as POC, DataFrame, and Parquet do not belong unless they are specifically required to interpret a dataset.
+
+Avoid duplicate entries.
 
 ---
 
