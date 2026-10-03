@@ -18,3 +18,4 @@
 | 2026-10-02 11:20 PM | Owner | Approved validation move and lightweight audit standard. | Approved |
 | 2026-10-02 11:20 PM | Agent | Moved validation evidence to audit and simplified audit log. | Complete |
 | 2026-10-03 2:42 AM | Agent | Defined PM, Builder, Reviewer roles and manual handoff loop. | Complete; scheduling deferred until manual proof |
+| 2026-10-03 | Agent | Moved project roles into `agents/` and added file-placement approval rule. | Complete |
