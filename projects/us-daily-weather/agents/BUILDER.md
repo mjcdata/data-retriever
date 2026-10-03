@@ -17,7 +17,7 @@
 4. When implementation is ready, hand that Task ID directly to Reviewer and stop work on that task pending review.
 5. If Reviewer returns **Fail**, correct only the identified failures within the approved task scope and return the same Task ID directly to Reviewer. Repeat until Pass or an exception requires PM involvement.
 6. After Reviewer records **Pass** and marks the task Complete, proceed to the next eligible approved task without waiting for PM unless a listed PM exception applies.
-7. If owner-controlled runtime execution is required, prepare everything needed and escalate for owner authorization. Do not bypass the execution boundary.
+7. If an approved task requires owner-controlled runtime execution, prepare the necessary predefined GitHub Actions workflow when an appropriate workflow does not already exist. Validate its configuration as far as possible without executing it, document what it will run, and then stop and request owner authorization. The Builder must never trigger the workflow itself.
 8. Escalate to PM when scope/criteria need changing, Builder and Reviewer cannot resolve a failure, a security-sensitive issue/blocker occurs, owner approval is needed, or a material phase decision is not already approved.
 
 **Must not**
