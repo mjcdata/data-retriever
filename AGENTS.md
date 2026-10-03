@@ -89,6 +89,8 @@ Use `documentation/` for execution and data documentation, including the data di
 
 Use `audit/` for validation evidence and the agent audit trail. Every project must include `audit/VALIDATION.md` when validation evidence exists and `audit/AGENT_AUDIT_LOG.md`.
 
+Use `agents/` for project-specific agent role files when a project uses multiple agents.
+
 Keep `PROJECT_SETUP.json` at the project root so agents can locate project state immediately.
 
 ## Execution strategy
@@ -156,14 +158,22 @@ Do not store substantive requirements, secrets, task history, or dataset content
 
 ## Agent roles and handoffs
 
-Use the repository-root `AGENT_ROLES.md` for the standard Project Manager, Builder, and Reviewer responsibilities and handoff loop.
+Keep framework-wide operating rules in the repository-root `AGENTS.md`. Keep project-specific role definitions under that project's `agents/` folder.
 
-Keep the default team limited to those three roles. Add specialized agents only after repeated work demonstrates a clear need and the owner approves the change.
+The default multi-agent team is Project Manager, Builder, and Reviewer. Keep those responsibilities in separate role files such as `agents/PROJECT_MANAGER.md`, `agents/BUILDER.md`, and `agents/REVIEWER.md`.
 
-Run the handoff loop manually on real project work before adding scheduled coordination. Scheduling must not weaken owner-directed execution.
+Keep the team small. Add specialized agents only after repeated work demonstrates a clear need and the owner approves the change. Run the handoff loop manually before adding scheduled coordination. Scheduling must not weaken owner-directed execution.
+
+## File placement and separation of duties
+
+Before creating a new durable file, determine the cleanest location based on its responsibility and the existing project structure.
+
+Recommend that location to the owner and briefly explain why it preserves separation of duties. Ask for approval before creating the file unless the location is already explicitly defined by an approved project/framework standard.
+
+Do not place files at the repository root merely for convenience. Framework-wide rules belong at the root; project-specific roles, plans, documentation, audit evidence, scripts, and outputs belong inside the applicable project directory and functional subfolder.
 
 ---
-
+ 
 # Detecting a New or Existing Project
 
 First identify which dataset project under `projects/` the user is working with.
