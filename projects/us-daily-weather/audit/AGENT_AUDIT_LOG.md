@@ -20,3 +20,4 @@
 | 2026-10-03 2:42 AM | Agent | Defined PM, Builder, Reviewer roles and manual handoff loop. | Complete; scheduling deferred until manual proof |
 | 2026-10-03 | Agent | Moved project roles into `agents/` and added file-placement approval rule. | Complete |
 | 2026-10-03 | Agent | Converted approved work plan into phase/task tables with P#T# IDs and acceptance criteria. | Complete |
+| 2026-10-03 | Agent | Added Work Plan task lifecycle and handoff rules to PM, Builder, and Reviewer roles. | Complete |
