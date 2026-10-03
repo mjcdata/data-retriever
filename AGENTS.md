@@ -85,9 +85,9 @@ The Data Retriever framework at the repository root remains shared across all da
 
 Use `planning/` for approved planning and decision records, including `PROJECT_PROPOSAL.md`, `PROJECT_PLAN.md`, `SOURCE_ASSESSMENT.md`, and `DATA_STORAGE.md`.
 
-Use `documentation/` for execution and data documentation, including the data dictionary, cleaning log, validation documentation, delivery/update documentation, and lessons learned.
+Use `documentation/` for execution and data documentation, including the data dictionary, cleaning log, delivery/update documentation, and lessons learned.
 
-Use `audit/` for the project's durable agent audit trail. Every project must include `audit/AGENT_AUDIT_LOG.md`.
+Use `audit/` for validation evidence and the agent audit trail. Every project must include `audit/VALIDATION.md` when validation evidence exists and `audit/AGENT_AUDIT_LOG.md`.
 
 Keep `PROJECT_SETUP.json` at the project root so agents can locate project state immediately.
 
@@ -110,15 +110,13 @@ Record the selected execution approach in the project plan or other appropriate 
 
 ## Agent audit trail
 
-Every Data Retriever project must maintain a human-readable audit log at `audit/AGENT_AUDIT_LOG.md` from Project Setup onward.
+Keep auditing lightweight. `audit/AGENT_AUDIT_LOG.md` should normally be only one pipe-delimited Markdown table with one row per material action.
 
-Append material agent actions as they occur. At minimum, record the date/time when practical, actor, action taken, and result or evidence. Include relevant commit SHAs, workflow run IDs, artifact IDs, file paths, failures, and blockers when they materially help trace what happened.
+Use four columns: `Date/Time | Actor | Action | Result`.
 
-Distinguish agent actions from owner actions and execution-environment actions such as GitHub Actions. The audit log should describe actions actually performed or verified; do not claim an action succeeded until evidence confirms it.
+Keep each row short. Add a run ID, commit SHA, artifact ID, or file path only when it materially improves traceability. Do not add introductions, narrative sections, repeated evidence, command output, dataset contents, or secrets.
 
-Do not record secrets, credentials, access tokens, passwords, or other sensitive values. Avoid copying large command outputs or dataset contents into the audit log; summarize them and reference the durable artifact instead.
-
-Audit logging is part of routine project execution and should not require separate owner approval for each entry.
+Record actions actually performed or verified. Distinguish owner, agent, and execution-environment actions. Audit logging is routine and does not require separate owner approval.
 
 ## Documentation lifecycle
 
@@ -132,7 +130,7 @@ For every source assessed, record the canonical official source URL when one is 
 
 The project's storage decision belongs in `planning/DATA_STORAGE.md`. This document should record the selected storage mechanism, expected size and growth, what is and is not stored in GitHub, update behavior, reproducibility requirements, security considerations, and the rationale for the decision.
 
-As execution continues, use dedicated durable documents for the data dictionary, cleaning decisions, validation evidence, delivery/update workflow, and lessons learned rather than overloading the original proposal.
+As execution continues, use dedicated durable documents for the data dictionary, cleaning decisions, delivery/update workflow, and lessons learned rather than overloading the original proposal. Keep validation evidence in `audit/VALIDATION.md`.
 
 ## Storage strategy
 
@@ -191,6 +189,7 @@ A typical project-specific `PROJECT_SETUP.json` may contain:
     "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "cleaning_log": "documentation/CLEANING_LOG.md",
     "lessons_learned": "documentation/LESSONS_LEARNED.md",
+    "validation": "audit/VALIDATION.md",
     "agent_audit_log": "audit/AGENT_AUDIT_LOG.md"
   },
   "last_updated": "YYYY-MM-DD"
