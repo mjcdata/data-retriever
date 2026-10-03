@@ -14,7 +14,7 @@
     "work_plan": "planning/WORK_PLAN.md",
     "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "agent_audit_log": "audit/AGENT_AUDIT_LOG.md",
-    "validation": "documentation/VALIDATION.md",
+    "validation": "audit/VALIDATION.md",
     "lessons_learned": "documentation/LESSONS_LEARNED.md"
   },
   "last_updated": "2026-10-02"
