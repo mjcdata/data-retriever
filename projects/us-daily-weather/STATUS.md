@@ -68,7 +68,7 @@ Target-specific row-level checks, feature-quality validation, train/validation/t
 - `planning/WORK_PLAN.md`
 - `planning/DATA_STORAGE.md`
 - `planning/RETRIEVAL_ARCHITECTURE.md`
-- `documentation/VALIDATION.md`
+- `audit/VALIDATION.md`
 - `documentation/LESSONS_LEARNED.md`
 - `audit/AGENT_AUDIT_LOG.md`
 - `scripts/retrieve_ghcnd.py`
