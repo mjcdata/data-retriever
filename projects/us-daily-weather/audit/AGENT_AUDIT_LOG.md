@@ -21,3 +21,4 @@
 | 2026-10-03 | Agent | Moved project roles into `agents/` and added file-placement approval rule. | Complete |
 | 2026-10-03 | Agent | Converted approved work plan into phase/task tables with P#T# IDs and acceptance criteria. | Complete |
 | 2026-10-03 | Agent | Added Work Plan task lifecycle and handoff rules to PM, Builder, and Reviewer roles. | Complete |
+| 2026-10-03 | Agent | Changed agent flow to Builder↔Reviewer continuous loop with PM management by exception. | Complete |
