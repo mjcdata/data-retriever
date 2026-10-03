@@ -15,7 +15,12 @@
     "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "agent_audit_log": "audit/AGENT_AUDIT_LOG.md",
     "validation": "audit/VALIDATION.md",
-    "lessons_learned": "documentation/LESSONS_LEARNED.md"
+    "lessons_learned": "documentation/LESSONS_LEARNED.md",
+    "agent_roles": {
+      "project_manager": "agents/PROJECT_MANAGER.md",
+      "builder": "agents/BUILDER.md",
+      "reviewer": "agents/REVIEWER.md"
+    }
   },
-  "last_updated": "2026-10-02"
+  "last_updated": "2026-10-03"
 }
