@@ -23,3 +23,4 @@
 | 2026-10-03 | Agent | Added Work Plan task lifecycle and handoff rules to PM, Builder, and Reviewer roles. | Complete |
 | 2026-10-03 | Agent | Changed agent flow to Builder↔Reviewer continuous loop with PM management by exception. | Complete |
 | 2026-10-03 | Agent | Separated framework lessons into root `LESSONS_LEARNED.md` and project-specific lessons into `documentation/PROJECT_LESSONS.md`. | Complete |
+| 2026-10-03 2:00 PM | Builder | Prepared P1T2 owner-controlled profiling workflow mode. | Ready for owner-authorized execution; workflow not triggered |
