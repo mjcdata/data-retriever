@@ -154,6 +154,14 @@ Use the project-specific `PROJECT_SETUP.json` as a small machine-readable routin
 
 Do not store substantive requirements, secrets, task history, or dataset contents in `PROJECT_SETUP.json`.
 
+## Agent roles and handoffs
+
+Use the repository-root `AGENT_ROLES.md` for the standard Project Manager, Builder, and Reviewer responsibilities and handoff loop.
+
+Keep the default team limited to those three roles. Add specialized agents only after repeated work demonstrates a clear need and the owner approves the change.
+
+Run the handoff loop manually on real project work before adding scheduled coordination. Scheduling must not weaken owner-directed execution.
+
 ---
 
 # Detecting a New or Existing Project
