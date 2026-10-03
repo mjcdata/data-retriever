@@ -85,7 +85,9 @@ The Data Retriever framework at the repository root remains shared across all da
 
 Use `planning/` for approved planning and decision records, including `PROJECT_PROPOSAL.md`, `PROJECT_PLAN.md`, `SOURCE_ASSESSMENT.md`, and `DATA_STORAGE.md`.
 
-Use `documentation/` for execution and data documentation, including the data dictionary, cleaning log, delivery/update documentation, and lessons learned.
+Use `documentation/` for execution and data documentation, including the data dictionary, cleaning log, delivery/update documentation, and project-specific lessons in `PROJECT_LESSONS.md`.
+
+Use the repository-root `LESSONS_LEARNED.md` for framework-wide lessons that can improve future Data Retriever projects. At project closeout, review project lessons for reusable lessons worth promoting to the root file. Proven framework lessons may inform later owner-approved changes to `AGENTS.md`.
 
 Use `audit/` for validation evidence and the agent audit trail. Every project must include `audit/VALIDATION.md` when validation evidence exists and `audit/AGENT_AUDIT_LOG.md`.
 
@@ -132,7 +134,7 @@ For every source assessed, record the canonical official source URL when one is 
 
 The project's storage decision belongs in `planning/DATA_STORAGE.md`. This document should record the selected storage mechanism, expected size and growth, what is and is not stored in GitHub, update behavior, reproducibility requirements, security considerations, and the rationale for the decision.
 
-As execution continues, use dedicated durable documents for the data dictionary, cleaning decisions, delivery/update workflow, and lessons learned rather than overloading the original proposal. Keep validation evidence in `audit/VALIDATION.md`.
+As execution continues, use dedicated durable documents for the data dictionary, cleaning decisions, delivery/update workflow, and project lessons rather than overloading the original proposal. Keep validation evidence in `audit/VALIDATION.md`.
 
 ## Storage strategy
 
@@ -206,7 +208,7 @@ A typical project-specific `PROJECT_SETUP.json` may contain:
     "data_storage": "planning/DATA_STORAGE.md",
     "data_dictionary": "documentation/DATA_DICTIONARY.md",
     "cleaning_log": "documentation/CLEANING_LOG.md",
-    "lessons_learned": "documentation/LESSONS_LEARNED.md",
+    "project_lessons": "documentation/PROJECT_LESSONS.md",
     "validation": "audit/VALIDATION.md",
     "agent_audit_log": "audit/AGENT_AUDIT_LOG.md"
   },
