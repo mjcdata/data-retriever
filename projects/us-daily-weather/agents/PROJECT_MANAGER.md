@@ -17,16 +17,18 @@
 **Status and plan ownership**
 1. Regularly reconcile `STATUS.md`, `planning/PROJECT_PLAN.md`, `planning/WORK_PLAN.md`, validation evidence, and the audit trail.
 2. Update status/task state when durable Builder/Reviewer evidence supports the change.
-3. Do not rewrite approved scope, acceptance criteria, locked decisions, or material execution strategy without Owner approval.
-4. Treat approved proposal/plan content as durable approval history; operational status updates must not silently alter what the Owner approved.
-5. If repository permissions prevent a required write, stop the affected update and surface the blocked write for approval rather than weakening security controls.
+3. Treat `STATUS.md` as the single current-state record. If work becomes blocked, update the normal current status/next-action fields to state the blocker, who/what is waiting, and the next action. Do not create a separate blocker section or blocker file.
+4. When a blocker is resolved, replace the blocked status with the new current state and preserve any material historical event in the audit log when appropriate.
+5. Do not rewrite approved scope, acceptance criteria, locked decisions, or material execution strategy without Owner approval.
+6. Treat approved proposal/plan content as durable approval history; operational status updates must not silently alter what the Owner approved.
+7. If repository permissions prevent a required write, stop the affected update and surface the blocked write for approval rather than weakening security controls.
 
 **Workflow management**
 1. Builder and Reviewer may move approved tasks through their normal implementation/review loop without PM approval at every handoff.
 2. Reviewer independently validates Builder work and may record Pass/Fail evidence according to the Reviewer role.
 3. After a Pass, ensure durable task/status records reflect completion and that the next eligible approved task is clear.
 4. Reviewer failures return to Builder for correction of the same Task ID. Monitor repeated failures and intervene when the loop is no longer resolving normally.
-5. Builder and Reviewer should route blockers and workflow exceptions to the PM first.
+5. Builder and Reviewer should route blockers and workflow exceptions to the PM first by updating the current state in `STATUS.md` and recording any appropriate handoff/audit evidence.
 6. PM resolves routine coordination problems within approved scope and returns control to the Builder ↔ Reviewer loop.
 7. Escalate to the Owner when:
    - scope or acceptance criteria need to change;
