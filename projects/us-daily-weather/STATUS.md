@@ -1,8 +1,10 @@
 # U.S. Daily Weather — Status
 
-**Status date:** 2026-10-02  
-**Current phase:** Work plan approved → Phase 1 Data Profiling next  
-**Overall status:** Ready to begin model-preparation execution
+**Status date:** 2026-10-04  
+**Current phase:** Phase 1 — Data Profiling  
+**Current task:** P1T3 — Geographic Coverage  
+**Overall status:** In progress — P1T2 passed independent review; P1T3 is the next eligible approved task.  
+**Next action:** Builder begins P1T3 under the approved Work Plan. If owner-controlled runtime execution is required, Builder prepares the predefined workflow and updates this status with the required Owner authorization before execution.
 
 ## Completed
 
@@ -15,6 +17,8 @@
 - Verified GitHub Actions Run `37060323541` completed successfully.
 - Verified ten yearly artifacts were produced, one for each year from 2016 through 2025.
 - Closed out retrieval validation, storage strategy, lessons learned, and audit documentation.
+- Completed P1T1 — Data Dictionary & Source Crosswalk.
+- Completed P1T2 — Dataset Structure Profile after independent Reviewer Pass from owner-triggered run `37112147880`.
 
 ## Data strategy
 
@@ -30,20 +34,22 @@ Intended lifecycle:
 
 Runtime execution remains owner-directed.
 
-The agent may prepare scripts and predefined GitHub Actions workflows, but the owner explicitly triggers execution unless a different execution mode is separately approved.
+Agents may prepare scripts and predefined GitHub Actions workflows, but the owner explicitly authorizes runtime execution unless a different execution mode is separately approved.
+
+If current work becomes blocked, this file's normal current status and next-action fields should state the blocker and required next action. No separate blocker section is required.
 
 ## Validation boundary
 
 The historical workflow successfully processed all ten requested years and created all ten artifacts. This is execution-level validation.
 
-Target-specific row-level checks, feature-quality validation, train/validation/test design, and model evaluation belong to the model-preparation phase.
+P1T2 has also passed independent task-level review. Remaining profiling, target-specific row-level checks, feature-quality validation, train/validation/test design, and model evaluation continue under the approved Work Plan.
 
-## Modeling plan completed
+## Modeling plan
 
 1. **Prediction targets:** V1 predicts both daily maximum temperature (TMAX) and daily minimum temperature (TMIN) using the existing GHCN-Daily dataset.
 2. **Location strategy:** User-facing map/location input maps latitude/longitude to appropriate NOAA station data.
 3. **V1 features:** Previous-day TMAX/TMIN, recent temperature average/trend, recent precipitation, recent snow/snow depth, time of year, latitude, longitude, and elevation.
-4. **Time-based evaluation:** Use 2016–2024 for development and reserve all of 2025 as unseen final-test data.
+4. **Time-based evaluation:** Train on 2016–2022, validate on 2023–2024, and reserve all of 2025 as unseen final-test data.
 5. **Baseline:** Persistence — prior-day TMAX predicts target-day TMAX and prior-day TMIN predicts target-day TMIN.
 6. **Primary metric:** Mean Absolute Error (MAE), reported separately for TMAX and TMIN as average degrees off.
 7. **Model use:** Save the selected trained model as a reusable artifact; build the interactive map/weather interface after training and evaluation.
@@ -52,24 +58,18 @@ Target-specific row-level checks, feature-quality validation, train/validation/t
 
 `planning/WORK_PLAN.md` is the approved eight-phase execution roadmap.
 
-1. Data Profiling.
-2. Modeling Dataset & Feature Engineering.
-3. Time-Based Train / Validation / Test Setup: train 2016–2022, validate 2023–2024, final test 2025.
-4. Persistence Baseline Model.
-5. ML Model Training with a small set of candidates selected by validation performance.
-6. Final Model Evaluation on untouched 2025 data against the baseline using MAE.
-7. Save & Package the Final Model and reproducibility records.
-8. Interactive Weather App with predicted daily high/low, U.S. map/location selection, observed high/low comparison, and separate prediction errors.
+**Phase 1 progress:** P1T1 Complete; P1T2 Complete; P1T3 Geographic Coverage is next.
 
-**Next execution phase:** Phase 1 — Data Profiling.
+The remaining approved phases are Modeling Dataset & Feature Engineering, Time-Based Train/Validation/Test Setup, Persistence Baseline Model, ML Model Training, Final Model Evaluation, Save & Package the Final Model, and Interactive Weather App.
 
 ## Key project records
 
+- `planning/PROJECT_PLAN.md`
 - `planning/WORK_PLAN.md`
 - `planning/DATA_STORAGE.md`
 - `planning/RETRIEVAL_ARCHITECTURE.md`
 - `audit/VALIDATION.md`
-- `documentation/LESSONS_LEARNED.md`
+- `documentation/PROJECT_LESSONS.md`
 - `audit/AGENT_AUDIT_LOG.md`
 - `scripts/retrieve_ghcnd.py`
 - `.github/workflows/us-daily-weather.yml`
